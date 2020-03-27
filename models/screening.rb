@@ -29,7 +29,7 @@ class Screening
   end
 
   def update()
-    sql = "UPDATE customers SET (show_time,ticket_available) = ($1, $2) WHERE id = $3"
+    sql = "UPDATE screenings SET (show_time,ticket_available) = ($1, $2) WHERE id = $3"
     values = [@show_time, @ticket_available, @id]
     return SqlRunner.run(sql,values)
   end
@@ -48,4 +48,5 @@ end
 def ticket_available?()
   return true if @ticket_available > 0
 end
+
 end
