@@ -40,5 +40,12 @@ class Screening
     return SqlRunner.run(sql,values)
   end
 
+def ticket_sold()
+  @ticket_available -= 1
+  update()
+end
 
+def ticket_available?()
+  return true if @ticket_available > 0
+end
 end
