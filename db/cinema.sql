@@ -6,13 +6,13 @@ DROP TABLE IF EXISTS customers;
 CREATE TABLE customers (
   id SERIAL PRIMARY KEY,
   name VARCHAR(255),
-  founds DECIMAL(255)
+  founds DECIMAL
 );
 
 CREATE TABLE films (
   id SERIAL PRIMARY KEY,
   title VARCHAR(255),
-  price DECIMAL(255)
+  price DECIMAL
 );
 
 CREATE TABLE screenings (

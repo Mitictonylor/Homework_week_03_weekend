@@ -4,6 +4,10 @@ require_relative("./models/film.rb")
 require_relative("./models/screening.rb")
 require_relative("./models/ticket.rb")
 
+Ticket.delete_all()
+Customer.delete_all()
+Screening.delete_all()
+Film.delete_all()
 
 customer1 = Customer.new({'name' => 'Antonio',
                           'founds' => 40.0
