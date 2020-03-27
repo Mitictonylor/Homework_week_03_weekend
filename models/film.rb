@@ -41,7 +41,7 @@ class Film
     return SqlRunner.run(sql,values)
   end
 
-  def customers_per_movie()
+  def customers_per_film()
     sql = "SELECT customers.* FROM customers
            INNER JOIN tickets
            ON tickets.customer_id = customers.id
@@ -51,6 +51,20 @@ class Film
     return customers.map{|customer| Customer.new(customer)}
   end
 
+def how_many_customers_per_film()
+  return customers_per_film().size()
+end
+
+def self.customers_count(film_id)
+  sql = "SELECT customers.* FROM customers
+         INNER JOIN tickets
+         ON tickets.customer_id = customers.id
+         WHERE tickets.film_id = $1;"
+  values = [film_id]
+  customers = SqlRunner.run(sql,values)
+  customer_hash = customers.map{|customer| Customer.new(customer)}
+  return customer_hash.size()
+end
 
 
 
