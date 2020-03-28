@@ -41,13 +41,23 @@ class Screening
     return SqlRunner.run(sql,values)
   end
 
-def ticket_sold()
-  @ticket_available -= 1
-  update()
-end
+  def ticket_sold()
+    @ticket_available -= 1
+    update()
+  end
 
-def ticket_available?()
-  return true if @ticket_available > 0
-end
+  def ticket_available?()
+    return true if @ticket_available > 0
+  end
+
+  def count_customer_par_show
+    sql = "SELECT tickets.screening_id FROM tickets
+          INNER JOIN screenings ON screenings.id = tickets.screening_id
+          WHERE screenings.id = $1"
+    values=[@id]
+    result = SqlRunner.run(sql,values)
+    return result.map{|a| a.length}.size()
+  end
+  
 
 end
