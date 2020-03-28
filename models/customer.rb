@@ -1,5 +1,6 @@
 require_relative('../db/sql_runner.rb')
-
+require_relative('./screening.rb')
+require_relative('./ticket.rb')
 class Customer
 
 attr_accessor :name, :founds
@@ -58,7 +59,36 @@ attr_reader :id
 #     values = [$1]
 #     results SqlRunner.run(sql,values)[0]
 #   end
-def how_many_films()
-  return have_ticket_for_which_films().size()
-end
+  def how_many_films()
+    return have_ticket_for_which_films().size()
+  end
+
+  def find_price(film_id, screening_id)
+    sql = "SELECT films.price FROM films
+          INNER JOIN tickets
+          ON tickets.film_id = films.id
+          WHERE tickets.customer_id = $1 AND tickets.film_id = $2 AND tickets.screening_id = $3"
+    values = [@id, film_id, screening_id]
+    return SqlRunner.run(sql,values)[0]['price'].to_f
+  end
+
+    def buy_ticket(film, screening)
+      price = film.price
+      if @founds >= price && screening.ticket_available?()
+        @founds -= price
+        update()
+        screening.ticket_sold()
+        new_ticket = Ticket.new({'customer_id' => @id,
+                              'film_id' => film.id,
+                              'screening_id' => screening.id
+                              })
+        new_ticket.save()
+        return p "Ticket id#{new_ticket.id} has been submitted"
+      elsif @founds < price
+        p "Not enough money"
+      else
+        p "Not enough ticket for this film"
+      end
+
+    end
 end

@@ -41,29 +41,33 @@ class Film
     return SqlRunner.run(sql,values)
   end
 
-  def customers_per_film()
+  def customers_per_film(screening_id)
     sql = "SELECT customers.* FROM customers
            INNER JOIN tickets
            ON tickets.customer_id = customers.id
-           WHERE tickets.film_id = $1;"
-    values = [@id]
+           WHERE tickets.film_id = $1 AND tickets.screening_id = $2;"
+    values = [@id, screening_id]
     customers = SqlRunner.run(sql,values)
     return customers.map{|customer| Customer.new(customer)}
   end
 
-def how_many_customers_per_film()
-  return customers_per_film().size()
+def how_many_customers_per_film(screening_id)
+  return customers_per_film(screening_id).size()
 end
 
-def self.customers_count(film_id)
+def customers_count(screening_id)
   sql = "SELECT customers.* FROM customers
          INNER JOIN tickets
          ON tickets.customer_id = customers.id
-         WHERE tickets.film_id = $1;"
-  values = [film_id]
+         WHERE tickets.film_id = $1 AND screening_id = $2;"
+  values = [@id, screening_id]
   customers = SqlRunner.run(sql,values)
   customer_hash = customers.map{|customer| Customer.new(customer)}
-  return customer_hash.size()
+  if customer_hash.size() > 0
+    return customer_hash.size()
+  else
+    p "The screening id inputed is not refered to this film"
+  end
 end
 
 

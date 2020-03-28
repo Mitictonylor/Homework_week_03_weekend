@@ -1,4 +1,5 @@
 require_relative('../db/sql_runner.rb')
+require_relative('./customer.rb')
 
 class Screening
   attr_accessor :show_time, :ticket_available
