@@ -69,9 +69,7 @@ class Screening
     values=[film_id]
     all = SqlRunner.run(sql, values)
     result = all.map{|screening| Ticket.new(screening)}
-    #needs to count the same screeining_id in ticket
-#     grouping_by_screening_id = result.group_by{|k,v| v}
-# return grouping_by_screening_id
+
 return result
   end
 

@@ -19,7 +19,7 @@ attr_reader :id
   end
 
   def self.all()
-    sql = "SELECT * FROM customers"
+    sql = "SELECT * FROM customers ORDER BY name"
     all = SqlRunner.run(sql)
     return all.map{|customer| Customer.new(customer)}
   end
@@ -67,7 +67,8 @@ attr_reader :id
     sql = "SELECT films.price FROM films
           INNER JOIN tickets
           ON tickets.film_id = films.id
-          WHERE tickets.customer_id = $1 AND tickets.film_id = $2 AND tickets.screening_id = $3"
+          WHERE tickets.customer_id = $1 AND tickets.film_id = $2 AND
+          tickets.screening_id = $3"
     values = [@id, film_id, screening_id]
     return SqlRunner.run(sql,values)[0]['price'].to_f
   end
