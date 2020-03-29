@@ -58,6 +58,21 @@ class Screening
     result = SqlRunner.run(sql,values)
     return result.map{|a| a.length}.size()
   end
-  
+
+  def self.popular(film_id)
+    sql = "SELECT tickets.screening_id FROM tickets
+          INNER JOIN screenings ON screenings.id = tickets.screening_id
+          INNER JOIN films ON films.id = tickets.film_id
+          WHERE tickets.film_id = $1 GROUP BY tickets.screening_id
+          ORDER BY COUNT(tickets.screening_id) DESC
+          LIMIT 1"
+    values=[film_id]
+    all = SqlRunner.run(sql, values)
+    result = all.map{|screening| Ticket.new(screening)}
+    #needs to count the same screeining_id in ticket
+#     grouping_by_screening_id = result.group_by{|k,v| v}
+# return grouping_by_screening_id
+return result
+  end
 
 end

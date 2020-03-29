@@ -46,12 +46,12 @@ screen1 = Screening.new({'show_time' => '18:30',
 screen1.save()
 
 screen2 = Screening.new({'show_time' => '15:30',
-                          'ticket_available' => 200
+                          'ticket_available' => 100
                         })
 screen2.save()
 
 screen3 = Screening.new({'show_time' => '16:00',
-                        'ticket_available' => 80
+                        'ticket_available' => 100
                         })
 screen3.save()
 
