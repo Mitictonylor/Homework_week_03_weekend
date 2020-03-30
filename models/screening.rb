@@ -69,8 +69,15 @@ class Screening
     values=[film_id]
     all = SqlRunner.run(sql, values)
     result = all.map{|screening| Ticket.new(screening)}
-
-return result
+    catch_the_id = result.first.screening_id
+    return Screening.find_by_id(catch_the_id)
   end
 
+  def self.find_by_id(id)
+    sql = "SELECT show_time FROM screenings WHERE id = $1"
+    values = [id]
+    result = SqlRunner.run(sql,values)
+    hash_of_result = result.map{|screen| Screening.new(screen)}
+    return hash_of_result.first.show_time
+  end
 end
