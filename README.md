@@ -9,7 +9,7 @@ Ruby, PostgreSQL, Sinatra
 
 - make sure you have Ruby and PostgreSQL installed on your machine
 
-- Clone/save the repository
+- Clone/download the repository
 
 
 **In The Terminal**:
