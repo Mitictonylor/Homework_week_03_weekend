@@ -14,17 +14,13 @@ Ruby, PostgreSQL, Sinatra
 
 **In The Terminal**:
 
-- Install Sinatra
-gem install sinatra
-- Create the  database
+- Create the  database:
 createdb cinema
-- Access and create the database tables
+- Access and create the database tables:
 psql -d cinema -f db/cinema.sql
-- Populate the tables
+- Populate the tables:
 ruby console.rb
-- Run the app
-ruby controller.rb
-- Go to http://localhost:4567 in your browser
+
 
 # Cinema
 
